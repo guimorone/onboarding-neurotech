@@ -14,9 +14,25 @@ class Collector:
         self.url: str = f'{base_url}?p={encoded_code}'
 
     def collect(self) -> Dict[str, Any]:
-        response = {}
+        response: Dict[str, Any] = {}
         page = get(self.url)
-        soup = BeautifulSoup(page.content, 'html.parser')
+        soup = BeautifulSoup(page.text, 'xml')
+        print('Content:', soup.prettify(), sep='\n')
+        products = soup.find_all('prod')
+
+        for product in products:
+            code = product.find('cProd').get_text()
+            name = product.find('xProd').get_text()
+            qtd = product.find('qCom').get_text()
+            unit_value = product.find('vUnCom').get_text()
+            total_value = product.find('vProd').get_text()
+
+            response[name] = {
+                'code': code,
+                'qtd': qtd,
+                'unit_value': unit_value,
+                'total_value': total_value,
+            }
 
         return response
 
