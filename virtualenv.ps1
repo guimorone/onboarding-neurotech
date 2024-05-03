@@ -8,7 +8,7 @@ if ($PSBoundParameters.ContainsKey('name')) {
   pyenv local 3.12.3
   pyenv exec python -m pip install virtualenv
   pyenv exec python -m venv $name
-  .\.venv\Scripts\activate
+  Invoke-Expression ".\$name\Scripts\activate"
   pip install -r .\requirements.txt
   Set-Location .\src\
   python .\test.py
