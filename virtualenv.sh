@@ -11,3 +11,5 @@ pyenv install 3.12.3
 pyenv virtualenv 3.12.3 $NAME
 pyenv activate $NAME
 pip install -r requirements.txt
+cd src/
+python test.py

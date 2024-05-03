@@ -9,7 +9,9 @@ if ($PSBoundParameters.ContainsKey('name')) {
   pyenv exec python -m pip install virtualenv
   pyenv exec python -m venv $name
   .\.venv\Scripts\activate
-  pip install -r requirements.txt
+  pip install -r .\requirements.txt
+  Set-Location .\src\
+  python .\test.py
 }
 else {
   Write-Host 'No arguments were passed for "name"'
