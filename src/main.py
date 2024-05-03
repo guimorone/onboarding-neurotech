@@ -1,17 +1,17 @@
+import sys
+import json
 from typing import Dict, Any
 from requests import get
 from bs4 import BeautifulSoup
-from urllib.parse import quote_plus
-
-base_url = 'http://nfce.sefaz.pe.gov.br/nfce-web/consultarNFCe'
-nf_code = '26220709515628000528650220001014011596828485|2|1|1|95FE53D7539468560309C8E1C560C9EF53329FE1'
+from utils import encode_url
+from constants import *
 
 
 class Collector:
     def __init__(self, code: str) -> None:
         self.code: str = code
-        encoded_code: str = quote_plus(code)
-        self.url: str = f'{base_url}?p={encoded_code}'
+        encoded_code: str = encode_url(code)
+        self.url: str = f'{BASE_URL}?p={encoded_code}'
 
     def collect(self) -> Dict[str, Any]:
         response: Dict[str, Any] = {}
@@ -38,6 +38,11 @@ class Collector:
 
 
 if __name__ == '__main__':
+    if len(sys.argv) == 2:
+        nf_code = sys.argv[1]
+    else:
+        nf_code = INITIAL_NF_CODE
+
     collector = Collector(nf_code)
     response = collector.collect()
-    print(response)
+    print(json.dumps(response, indent=4))
