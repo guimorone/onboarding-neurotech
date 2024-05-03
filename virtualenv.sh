@@ -13,3 +13,5 @@ pyenv activate $NAME
 pip install -r requirements.txt
 cd src/
 python test.py
+cd ../
+python app.py

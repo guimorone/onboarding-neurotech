@@ -12,6 +12,8 @@ if ($PSBoundParameters.ContainsKey('name')) {
   pip install -r .\requirements.txt
   Set-Location .\src\
   python .\test.py
+  Set-Location ..\
+  python app.py
 }
 else {
   Write-Host 'No arguments were passed for "name"'

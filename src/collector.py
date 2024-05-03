@@ -1,10 +1,8 @@
-import sys
-import json
 from typing import Dict, Any
 from requests import get
 from bs4 import BeautifulSoup
-from utils import encode_url
-from constants import *
+from .utils import encode_url
+from .constants import *
 
 
 class Collector:
@@ -35,14 +33,3 @@ class Collector:
             }
 
         return response
-
-
-if __name__ == '__main__':
-    if len(sys.argv) == 2:
-        nf_code = sys.argv[1]
-    else:
-        nf_code = INITIAL_NF_CODE
-
-    collector = Collector(nf_code)
-    response = collector.collect()
-    print(json.dumps(response, indent=4))
